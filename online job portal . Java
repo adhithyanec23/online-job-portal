@@ -1,0 +1,91 @@
+import java.awt.*;
+import java.awt.event.*;
+
+public class OnlineJobPortal extends Frame implements ActionListener {
+    // Components
+    Label titleLabel, nameLabel, emailLabel, jobLabel, employerLabel, postLabel;
+    TextField nameField, emailField, jobField, postField;
+    Button submitSeeker, submitEmployer, exitButton;
+    TextArea displayArea;
+
+    public OnlineJobPortal() {
+        // Set Frame properties
+        setTitle("Online Job Portal");
+        setSize(500, 600);
+        setLayout(new FlowLayout());
+        setVisible(true);
+
+        // Title
+        titleLabel = new Label("Welcome to Online Job Portal");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        add(titleLabel);
+
+        // Job Seeker Section
+        nameLabel = new Label("Name:");
+        nameField = new TextField(30);
+        emailLabel = new Label("Email:");
+        emailField = new TextField(30);
+        jobLabel = new Label("Job Role Interested:");
+        jobField = new TextField(30);
+        submitSeeker = new Button("Submit Job Seeker Info");
+        submitSeeker.addActionListener(this);
+        add(nameLabel);
+        add(nameField);
+        add(emailLabel);
+        add(emailField);
+        add(jobLabel);
+        add(jobField);
+        add(submitSeeker);
+
+        // Employer Section
+        employerLabel = new Label("Employer Section");
+        employerLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        postLabel = new Label("Post a Job:");
+        postField = new TextField(30);
+        submitEmployer = new Button("Submit Job Posting");
+        submitEmployer.addActionListener(this);
+        add(employerLabel);
+        add(postLabel);
+        add(postField);
+        add(submitEmployer);
+
+        // Display Area
+        displayArea = new TextArea(10, 40);
+        displayArea.setEditable(false);
+        add(displayArea);
+
+        // Exit Button
+        exitButton = new Button("Exit");
+        exitButton.addActionListener(this);
+        add(exitButton);
+
+        // Window Closing
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                dispose();
+            }
+        });
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == submitSeeker) {
+            // Display Job Seeker Info
+            String name = nameField.getText();
+            String email = emailField.getText();
+            String job = jobField.getText();
+            displayArea.append("Job Seeker:\nName: " + name + "\nEmail: " + email + "\nInterested Role: " + job + "\n\n");
+        } else if (e.getSource() == submitEmployer) {
+            // Display Job Posting
+            String jobPosting = postField.getText();
+            displayArea.append("Employer Job Posting:\n" + jobPosting + "\n\n");
+        } else if (e.getSource() == exitButton) {
+            // Exit Application
+            dispose();
+        }
+    }
+
+    public static void main(String[] args) {
+        new OnlineJobPortal();
+    }
+}
